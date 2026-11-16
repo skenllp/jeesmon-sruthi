@@ -61,7 +61,7 @@
   },
   "subEvent": {
     "@type": "Event",
-    "name": "Engagement Reception",
+    "name": "Reception",
     "startDate": "2026-12-31T17:00:00+05:30",
     "location": {
       "@type": "Place",
@@ -85,7 +85,7 @@
 
 <!-- Critical preloads -->
 <link rel="preload" as="image" href="assets/images/cover/cover.jpg" fetchpriority="high">
-<link rel="preload" as="image" href="assets/images/hero/hero.jpg">
+<link rel="preload" as="image" href="assets/images/hero/hero-alt.png">
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/scenes.css">
@@ -257,10 +257,12 @@
   <!-- ---------- 3 · HERO ---------- -->
   <section id="hero" class="scene scene--screen scene--hero" aria-busy="true">
     <picture class="section-bg">
+      <source id="heroSourceAvif" type="image/avif" data-hero-srcset="assets/images/hero/hero.avif">
+      <source id="heroSourceWebp" type="image/webp" data-hero-srcset="assets/images/hero/hero.webp">
       <img id="heroImg" class="section-bg"
-           data-candidates="assets/images/hero/hero.jpg"
-           alt="Jeesmon and Sruthi walking hand in hand"
-           width="1066" height="1600"
+           data-candidates="assets/images/hero/hero-alt.png,assets/images/hero/hero.png,assets/images/hero/hero.webp,assets/images/hero/hero.avif"
+           alt=""
+           width="1080" height="1920"
            decoding="async"
            fetchpriority="high">
     </picture>
@@ -289,7 +291,7 @@
       </p>
     </div>
 
-    <p class="hero-subtitle">St. Thomas Syro Malabar Forane Church, Mylacombu<br>3:00 PM</p>
+    <p class="hero-subtitle">St. Thomas Syro Malabar Forane Church, Mylacombu &nbsp;&middot;&nbsp; 3:00 PM</p>
 
     <a class="scroll-indicator" href="#details" aria-label="Scroll to engagement details">
       <span class="scroll-indicator__word">Scroll</span>
@@ -355,7 +357,7 @@
         </li>
         <li class="fact reveal" data-delay="2">
           <svg class="ico" aria-hidden="true"><use href="#i-bell"></use></svg>
-          <span class="fact-k">Engagement Reception</span>
+          <span class="fact-k">Reception</span>
           <span class="fact-v">Thursday, 31 December 2026</span>
           <span class="fact-time"><svg class="ico" aria-hidden="true"><use href="#i-clock"></use></svg>5:00 PM</span>
           <span class="fact-s fact-s--venue">St. Thomas Forane Church Parish Hall</span>
@@ -559,13 +561,10 @@
 
       <div class="couple-grid">
         <article class="person reveal" data-delay="1">
-          <div class="person-portrait">
-            <img loading="lazy" decoding="async" width="560" height="560"
-                 src="assets/images/portraits/groom.jpg" alt="Dr. Jeesmon Saji Pulickan">
-          </div>
           <p class="person-role">The Groom</p>
           <h3 class="person-name">Dr. Jeesmon Saji Pulickan</h3>
           <p class="person-line">Son of Mr.&nbsp;Saji&nbsp;Philipose<br>&amp;&nbsp;Mrs.&nbsp;Santy&nbsp;Saji</p>
+          <p class="person-place">Pulickal House, Arakkulam<br>Thodupuzha, Kerala</p>
         </article>
 
         <div class="couple-knot" aria-hidden="true">
@@ -575,13 +574,10 @@
         </div>
 
         <article class="person reveal" data-delay="2">
-          <div class="person-portrait">
-            <img loading="lazy" decoding="async" width="560" height="560"
-                 src="assets/images/portraits/bride.jpg" alt="Dr. Sruthi Anna Augustine">
-          </div>
           <p class="person-role">The Bride</p>
           <h3 class="person-name">Dr. Sruthi Anna Augustine</h3>
           <p class="person-line">Daughter of Mr.&nbsp;Augusthy&nbsp;Puthenpurayil&nbsp;Augusthy<br>&amp;&nbsp;Mrs.&nbsp;Sheena&nbsp;Augusthy</p>
+          <p class="person-place">Puthenpurayil House, Nanguthotti<br>Kattappana, Kerala</p>
         </article>
       </div>
     </div>
@@ -622,7 +618,7 @@
           <h3 class="family-name">Mr. Augusthy Puthenpurayil Augusthy</h3>
           <p class="family-amp">&amp;</p>
           <h3 class="family-name">Mrs. Sheena Augusthy</h3>
-          <p class="family-home">Puthenpurayil House<br>Nanguthotti, Kattapana</p>
+          <p class="family-home">Puthenpurayil House<br>Nanguthotti, Kattappana</p>
         </article>
       </div>
 
@@ -668,7 +664,7 @@
               3:00 PM</p>
             <div class="venue-actions">
               <a class="btn btn--gold" target="_blank" rel="noopener" data-map="ceremony"
-                 href="https://www.google.com/maps/dir/?api=1&amp;destination=St.+Thomas+Forane+Church+Mylacombu+Thodupuzha+Kerala">
+                 href="https://maps.app.goo.gl/DxUgb9Y7Roo4nWE28?g_st=ic">
                 <svg class="ico"><use href="#i-pin"></use></svg> Get Directions</a>
             </div>
           </div>

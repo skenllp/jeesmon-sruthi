@@ -2,15 +2,18 @@
    rsvp.js — "Leave Your Wishes" form + Wishes Wall
    Jeesmon & Sruthi — Engagement Invitation
 
-   Configuration lives in js/config.js (INVITE_CONFIG.SCRIPT_URL).
+   Wishes are stored in Firebase Realtime Database. Configuration: js/config.js (INVITE_CONFIG.FIREBASE).
    Setup steps are in README.md.
    ============================================================ */
 (function () {
   'use strict';
 
   var CFG = window.INVITE_CONFIG || {};
-  var SCRIPT_URL = String(CFG.SCRIPT_URL || '').trim();
-  var CONNECTED = /^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(SCRIPT_URL);
+  var FB = CFG.FIREBASE || {};
+  var WISHES_PATH = String(CFG.WISHES_PATH || 'wishes');
+  var CONNECTED = !!(String(FB.apiKey || '').trim() && String(FB.databaseURL || '').trim());
+  var SDK_VER = '10.12.5';
+  var db = null;
 
   var LS_SENT = 'js-wishes-sent-v1';       /* hashes of wishes already sent from this device */
   var LS_LOCAL = 'js-wishes-preview-v1';   /* preview-mode wall (only when not connected)    */
@@ -110,31 +113,39 @@
     else wishesWall.appendChild(article);
   }
 
-  /* ---------- transport ---------- */
-  function postToSheet(data) {
-    var body = JSON.stringify(data);
-    /* text/plain keeps this a "simple" request (no CORS pre-flight) */
-    return fetch(SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: body,
-      redirect: 'follow'
-    }).then(function (res) {
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      return res.json();
-    }).then(function (json) {
-      if (json && (json.result === 'success' || json.result === 'duplicate')) return json;
-      throw new Error((json && json.message) || 'Rejected');
-    }).catch(function (err) {
-      /* A CORS/redirect quirk can hide a delivered response. Re-send once in
-         no-cors mode; the script de-duplicates, so a repeat cannot double-post. */
-      if (err instanceof TypeError) {
-        return fetch(SCRIPT_URL, {
-          method: 'POST', mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: body
-        }).then(function () { return { result: 'success', unverified: true }; });
-      }
-      throw err;
+  /* ---------- transport (Firebase Realtime Database, compat SDK loaded on demand) ---------- */
+  function loadScript(src) {
+    return new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = src; s.async = true;
+      s.onload = resolve;
+      s.onerror = function () { reject(new Error('Failed to load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  var dbPromise = null;
+  function getDb() {
+    if (db) return Promise.resolve(db);
+    if (dbPromise) return dbPromise;
+    var base = 'https://www.gstatic.com/firebasejs/' + SDK_VER + '/';
+    dbPromise = loadScript(base + 'firebase-app-compat.js')
+      .then(function () { return loadScript(base + 'firebase-database-compat.js'); })
+      .then(function () {
+        var app = window.firebase.apps.length ? window.firebase.app() : window.firebase.initializeApp(FB);
+        db = window.firebase.database(app);
+        return db;
+      })
+      .catch(function (err) { dbPromise = null; throw err; });
+    return dbPromise;
+  }
+
+  function saveWish(data) {
+    return getDb().then(function (d) {
+      return d.ref(WISHES_PATH).push({
+        name: data.name,
+        wish: data.wish,
+        createdAt: window.firebase.database.ServerValue.TIMESTAMP
+      });
     });
   }
 
@@ -184,11 +195,7 @@
       return;
     }
 
-    postToSheet({
-      name: name,
-      wish: wish,
-      timestamp: new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
-    }).then(function () {
+    saveWish({ name: name, wish: wish }).then(function () {
       finishSuccess(name, wish);
     }).catch(function () {
       setLoading(false);
@@ -202,22 +209,22 @@
     if (!CONNECTED) {
       if (noteEl) {
         noteEl.hidden = false;
-        noteEl.textContent = 'Preview mode: wishes are kept on this device only until Google Sheets is connected.';
+        noteEl.textContent = 'Preview mode: wishes are kept on this device only until Firebase is connected.';
       }
       lsGet(LS_LOCAL, []).slice().reverse().forEach(function (w) {
         if (w && w.name && w.wish) addWishCard(w.name, w.wish, false);
       });
       return;
     }
-    fetch(SCRIPT_URL + '?action=getWishes', { method: 'GET' })
-      .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-      .then(function (json) {
-        if (!json || !Array.isArray(json.wishes)) return;
-        json.wishes.forEach(function (w) {
-          if (w && w.name && w.wish && String(w.wish).trim()) addWishCard(w.name, w.wish, false);
-        });
-      })
-      .catch(function () { /* wall simply stays empty until the first wish arrives */ });
+    getDb().then(function (d) {
+      return d.ref(WISHES_PATH).orderByChild('createdAt').limitToLast(MAX_CARDS).once('value');
+    }).then(function (snap) {
+      var list = [];
+      snap.forEach(function (child) { list.push(child.val()); });
+      list.reverse().forEach(function (w) {   /* newest first */
+        if (w && w.name && w.wish && String(w.wish).trim()) addWishCard(w.name, w.wish, false);
+      });
+    }).catch(function () { /* wall simply stays empty until the first wish arrives */ });
   }
 
   loadWishes();

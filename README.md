@@ -1,6 +1,6 @@
 # Jeesmon & Sruthi — Engagement Invitation
 
-Static site (HTML5 · CSS3 · vanilla JS), adapted from the Bestin & Mareena reference. No build step.
+Static site (HTML5 · CSS3 · vanilla JS), adapted from the Bestin & Mareena reference (hero, layout and styling follow it). No build step.
 
 ## Run locally
 ```
@@ -13,16 +13,15 @@ Import the folder (framework preset: **Other**, no build command, output = root)
 **After you know the live domain**, replace `https://jeesmon-sruthi.vercel.app` in `index.html`
 (canonical, `og:url`, `og:image`, `twitter:image`, JSON-LD). WhatsApp needs absolute image URLs, so do this before sharing the link.
 
-## Connecting Google Sheets (wishes)
+## Connecting Firebase Realtime Database (wishes)
 The form is in **preview mode** until you do this; wishes then stay on each visitor's device only.
-1. Create a Google Sheet → **Extensions → Apps Script**.
-2. Paste all of `Code.gs`, save.
-3. **Deploy → New deployment → Web app** · Execute as **Me** · Who has access **Anyone**.
-4. Copy the Web app URL (`https://script.google.com/macros/s/…/exec`) into `js/config.js` → `SCRIPT_URL`.
-5. Test: open the site, send a wish, confirm a row appears in the `Wishes` sheet and on the Wishes Wall after refresh.
-No secrets are stored in the site; the URL is a public endpoint. The script trims/limits input, blocks formula injection and ignores exact duplicates.
+1. [Firebase console](https://console.firebase.google.com) → your project → **Build → Realtime Database → Create database** (locked mode).
+2. Copy the database URL shown at the top of the **Data** tab (e.g. `https://your-project-default-rtdb.firebaseio.com`).
+3. **Project settings → General → Your apps → Web (</>)** → register an app → copy the config into `js/config.js` → `FIREBASE`, and put the database URL in `databaseURL`.
+4. Realtime Database → **Rules** → paste the contents of `database.rules.json` → Publish. Guests can read the wall and add a wish; nobody can edit or delete from the site.
+5. Test: send a wish on the live site; it appears under `wishes` in the Data tab and on the Wishes Wall after a refresh. Delete unwanted wishes in the console.
 
 ## Things you can change
-- `js/config.js` — Sheets URL, music file, event start (`2026-12-31T15:00:00+05:30`).
+- `js/config.js` — Firebase config, music file, event start (`2026-12-31T15:00:00+05:30`).
 - Map buttons — `data-map="ceremony|reception"` links in the Venue section of `index.html`.
 - Music — `assets/audio/music.mp3` is the reference file; swap in music you have rights to.

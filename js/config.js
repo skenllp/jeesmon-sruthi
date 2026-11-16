@@ -1,20 +1,28 @@
 /* ============================================================
-   config.js — deployment settings (no secrets live here)
+   config.js — deployment settings
 
-   SCRIPT_URL
-     Paste the Web App URL of your deployed Google Apps Script
-     (see README.md → "Connecting Google Sheets").
-     Leave it empty ('') until the script is deployed and tested.
-     While empty, the wishes form runs in a clearly labelled
-     preview mode: wishes are kept on that visitor's device only.
+   FIREBASE
+     Paste your Firebase web-app config here (Firebase console →
+     Project settings → General → Your apps → Web app → Config).
+     These values are public identifiers, not secrets; what protects
+     the data is database.rules.json (publish it — see README.md).
+     While apiKey / databaseURL are empty the wishes form runs in a
+     clearly labelled preview mode (wishes stay on that device).
 
    MUSIC_SRC
-     Path or URL of the background music file. Replace
-     assets/audio/music.mp3 or point this at another file you
-     have the right to use.
+     Path or URL of the background music file.
    ============================================================ */
 window.INVITE_CONFIG = {
-  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbzo4zh_hYjELAWH_ZNRIfQ2SbM-_mUosUrOZuWr-tJHJFZZciptWq1AJEsY6S4SSkQ5zw/exec',
+  FIREBASE: {
+    apiKey: 'AIzaSyAT7vm7qvbs5xnsk4V-MbPpRIdq_nozQuQ',
+    authDomain: 'jeesmon-sruthi.firebaseapp.com',
+    databaseURL: 'https://jeesmon-sruthi-default-rtdb.asia-southeast1.firebasedatabase.app',
+    projectId: 'jeesmon-sruthi',
+    storageBucket: 'jeesmon-sruthi.firebasestorage.app',
+    messagingSenderId: '630044917446',
+    appId: '1:630044917446:web:e11702dce8bf776549e1c7'
+  },
+  WISHES_PATH: 'wishes',
   MUSIC_SRC: 'assets/audio/music.mp3',
   /* Engagement ceremony start, written with an explicit +05:30 (Asia/Kolkata)
      offset so the countdown is correct on every device and time zone. */

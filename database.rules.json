@@ -1,0 +1,18 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "wishes": {
+      ".read": true,
+      ".indexOn": ["createdAt"],
+      "$wishId": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['name', 'wish', 'createdAt'])",
+        "name": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 80" },
+        "wish": { ".validate": "newData.isString() && newData.val().length >= 2 && newData.val().length <= 500" },
+        "createdAt": { ".validate": "newData.val() == now" },
+        "$other": { ".validate": false }
+      }
+    }
+  }
+}

@@ -1691,23 +1691,9 @@ body.finale-particles .finale-fallback{opacity:0}
 .landing-names .amp{font-size:.62em;line-height:1}
 .landing-date{margin-bottom:clamp(14px,2.6vh,26px)}
 
-/* ---------- hero: light type on darkened photograph ---------- */
-.scene--hero > picture.section-bg > img{object-position:52% 24%}
-@media (min-aspect-ratio:1/1){
-  .scene--screen.scene--hero > picture.section-bg > img{object-position:center 26%}
-}
-.scene--hero .section-overlay{
-  background:
-    linear-gradient(180deg,rgba(12,9,5,.72) 0%,rgba(12,9,5,.28) 16%,transparent 30%,
-      transparent 44%,rgba(12,9,5,.55) 66%,rgba(12,9,5,.88) 100%);
-}
-.scene--hero > .section-content{justify-content:flex-end;padding-bottom:clamp(2px,1vh,10px)}
-.scene--hero .hero-bless__en{color:rgba(255,238,205,.95);text-shadow:0 1px 10px rgba(0,0,0,.65)}
-.scene--hero .hero-divider{color:var(--gold-lt)}
-.scene--hero .hero-names{color:#FFF8EC;text-shadow:0 2px 24px rgba(0,0,0,.55),0 1px 2px rgba(0,0,0,.4);font-size:clamp(44px,12vw,84px)}
-.scene--hero .hero-names__amp{color:var(--gold-lt)}
-.scene--hero .hero-date__en{color:#F6E7C6;text-shadow:0 1px 10px rgba(0,0,0,.6)}
-.scene--hero .hero-subtitle{color:rgba(255,244,222,.92);text-shadow:0 1px 10px rgba(0,0,0,.65);white-space:normal;line-height:1.7}
+/* ---------- hero: identical to the reference (illustrated backdrop, reference palette) ---------- */
+.scene--hero{--sage:#5A7A5A;--sage-lt:#7A9E7A;--sage-dk:#3D5E3D;--forest:#2E4E2E}
+.scene--hero .hero-subtitle{white-space:normal;line-height:1.7}
 
 /* ---------- opening video: show the whole portrait frame, never crop the board ---------- */
 #revealVideo{object-fit:contain;object-position:center center;background:transparent}
@@ -1747,15 +1733,8 @@ body.finale-particles .finale-fallback{opacity:0}
 .story-photo-img--childhood{object-position:center 30%}
 .story-photo-img{object-position:center 28%}
 
-/* ---------- bride & groom portraits ---------- */
+/* ---------- bride & groom (text only, as in the reference) ---------- */
 .person{max-width:340px}
-.person-portrait{
-  position:relative;width:clamp(150px,44vw,200px);aspect-ratio:3/4;margin:0 auto 22px;
-  border-radius:999px 999px 14px 14px;overflow:hidden;
-  border:1px solid rgba(212,184,106,.55);
-  box-shadow:0 0 0 6px rgba(20,17,12,.9),0 0 0 7px rgba(212,184,106,.35),0 24px 50px -22px rgba(0,0,0,.8);
-}
-.person-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 32%}
 .person-name{font-size:clamp(25px,6.2vw,34px);line-height:1.25}
 .person-line{font-size:13.5px}
 @media (max-width:540px){.person{max-width:300px}}
