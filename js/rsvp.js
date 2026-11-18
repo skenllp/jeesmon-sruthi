@@ -1,6 +1,6 @@
-/* ============================================================
+﻿/* ============================================================
    rsvp.js — "Leave Your Wishes" form + Wishes Wall
-   Jeesmon & Sruthi — Wedding Invitation
+   Jees & Sruthi — Wedding Invitation
 
    Wishes are stored in Firebase Realtime Database. Configuration: js/config.js (INVITE_CONFIG.FIREBASE).
    Setup steps are in README.md.

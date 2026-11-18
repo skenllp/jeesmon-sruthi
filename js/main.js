@@ -1,5 +1,5 @@
-/* ============================================================
-   Jeesmon & Sruthi — Wedding Invitation
+﻿/* ============================================================
+   Jees & Sruthi — Wedding Invitation
    Cinematic flow controller
    Landing cover → invitation video → hero → scroll journey
    ============================================================ */
