@@ -1932,3 +1932,13 @@ body.finale-particles .finale-fallback{opacity:0}
   #rsvp .section-content{padding-inline:14px}
   #couple .section-content{padding-inline:16px}
 }
+
+/* gallery: three photos, tidy grid */
+.gallery-masonry{
+  column-count:auto;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(12px,2.4vw,24px);align-items:start;
+}
+.gallery-masonry .gal-item{margin:0}
+@media (max-width:700px){
+  .gallery-masonry{grid-template-columns:1fr;max-width:24rem}
+}
