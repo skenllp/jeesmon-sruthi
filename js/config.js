@@ -24,7 +24,7 @@ window.INVITE_CONFIG = {
   },
   WISHES_PATH: 'wishes',
   MUSIC_SRC: 'assets/audio/music.mp3',
-  /* Engagement ceremony start, written with an explicit +05:30 (Asia/Kolkata)
+  /* Wedding ceremony start, written with an explicit +05:30 (Asia/Kolkata)
      offset so the countdown is correct on every device and time zone. */
   EVENT_START: '2026-12-31T15:00:00+05:30'
 };

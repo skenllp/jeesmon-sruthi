@@ -1,5 +1,5 @@
 /* ============================================================
-   Jeesmon & Sruthi — Engagement Invitation
+   Jeesmon & Sruthi — Wedding Invitation
    Cinematic flow controller
    Landing cover → invitation video → hero → scroll journey
    ============================================================ */
@@ -589,7 +589,7 @@
         if (doneMsg) doneMsg.textContent = 'Thank you for your prayers, presence and blessings.';
       } else {
         if (doneTitle) doneTitle.textContent = 'With grateful hearts';
-        if (doneMsg) doneMsg.textContent = 'Thank you for celebrating our engagement with us.';
+        if (doneMsg) doneMsg.textContent = 'Thank you for celebrating our wedding with us.';
       }
     }
 

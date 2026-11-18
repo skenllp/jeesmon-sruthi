@@ -1,4 +1,4 @@
-# Jeesmon & Sruthi — Engagement Invitation
+# Jeesmon & Sruthi — Wedding Invitation
 
 Static site (HTML5 · CSS3 · vanilla JS), adapted from the Bestin & Mareena reference (hero, layout and styling follow it). No build step.
 
