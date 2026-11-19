@@ -17,6 +17,7 @@
   var W = 0, H = 0, DPR = 1;
   var parts = [];
   var sprites = [];
+  var deep = [];   /* antique-gold / burgundy sprites for the beige finale */
   var running = false, rafId = 0, lastT = 0;
 
   /* finale state machine: free → gather → glow → ascend → done */
@@ -87,6 +88,23 @@
       g.lineWidth = 1.6;
       g.beginPath(); g.arc(h, h, h * 0.66, 0, TAU); g.stroke();
     }
+    return c;
+  }
+
+  /* Darker sprites, drawn with normal blending so the THANK YOU
+     letters read on the light beige finale (additive glow would vanish). */
+  function makeDeepSprite(kind) {
+    var s = 64, h = s / 2;
+    var c = document.createElement('canvas');
+    c.width = c.height = s;
+    var g = c.getContext('2d');
+    var core = kind === 1 ? '110,30,44' : '138,104,32';   /* burgundy star · antique-gold dust */
+    var gd = g.createRadialGradient(h, h, 0, h, h, h * 0.62);
+    gd.addColorStop(0, 'rgba(' + core + ',1)');
+    gd.addColorStop(0.45, 'rgba(' + core + ',0.75)');
+    gd.addColorStop(1, 'rgba(' + core + ',0)');
+    g.fillStyle = gd;
+    g.beginPath(); g.arc(h, h, h * 0.62, 0, TAU); g.fill();
     return c;
   }
 
@@ -274,7 +292,8 @@
     lastT = now;
 
     ctx.clearRect(0, 0, W, H);
-    ctx.globalCompositeOperation = 'lighter';
+    var onBeige = phase !== 'free' && deep.length;
+    ctx.globalCompositeOperation = onBeige ? 'source-over' : 'lighter';
 
     var elapsed = now - phaseStart;
 
@@ -349,7 +368,8 @@
       if (phase === 'glow' && p.has) rad = p.r * (1.35 + 0.25 * Math.sin(p.tw * 2));
 
       ctx.globalAlpha = alpha > 1 ? 1 : alpha;
-      ctx.drawImage(sprites[p.k], p.x - rad, p.y - rad, rad * 2, rad * 2);
+      var spr = onBeige ? deep[p.k === 1 ? 1 : 0] : sprites[p.k];
+      ctx.drawImage(spr, p.x - rad, p.y - rad, rad * 2, rad * 2);
     }
 
     ctx.globalAlpha = 1;
@@ -388,6 +408,7 @@
     init: function () {
       if (reduceMotion.matches) return;
       sprites = [makeSprite(0), makeSprite(1), makeSprite(2)];
+      deep = [makeDeepSprite(0), makeDeepSprite(1)];
       resize();
       build();
       start();

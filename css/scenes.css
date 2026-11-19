@@ -85,7 +85,7 @@ img.section-bg{
 .scene--ivory  { background:#F7F1E4; color:var(--ink); }
 .scene--beige  { background:#EDE3CE; color:var(--ink); }
 .scene--dark   { background:#16120D; color:#F3EDE0;    }
-.scene--finale { background:#14110C; color:#F3EDE0;    }
+.scene--finale { background:#EDE3CE; color:var(--ink);   }
 
 .scene--ivory .section-overlay{
   background:
@@ -104,14 +104,14 @@ img.section-bg{
 }
 .scene--finale .section-overlay{
   background:
-    radial-gradient(80% 55% at 50% 45%,rgba(184,148,42,.12),transparent 66%),
-    linear-gradient(180deg,rgba(14,12,8,.1),rgba(14,12,8,.65));
+    radial-gradient(80% 55% at 50% 45%,rgba(255,250,238,.45),transparent 66%),
+    linear-gradient(180deg,rgba(237,227,206,.1),rgba(237,227,206,.5));
 }
 
-.scene--dark .sec-title,
-.scene--finale .sec-title   { color:#F5EFE2; }
-.scene--dark .kicker,
-.scene--finale .kicker      { color:var(--gold-lt); opacity:.9; }
+.scene--dark .sec-title     { color:#F5EFE2; }
+.scene--dark .kicker        { color:var(--gold-lt); opacity:.9; }
+.scene--finale .sec-title   { color:var(--burgundy); }
+.scene--finale .kicker      { color:var(--gold-dk); }
 
 /* ============================================================
    3 · FLOW SCENES  (background image is absolutely positioned)
