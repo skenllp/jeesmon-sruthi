@@ -22,6 +22,6 @@ The form is in **preview mode** until you do this; wishes then stay on each visi
 5. Test: send a wish on the live site; it appears under `wishes` in the Data tab and on the Wishes Wall after a refresh. Delete unwanted wishes in the console.
 
 ## Things you can change
-- `js/config.js` — Firebase config, music file, event start (`2026-12-31T15:00:00+05:30`).
+- `js/config.js` — Firebase config, music file, event start (`2026-12-31T16:00:00+05:30`).
 - Map buttons — `data-map="ceremony|reception"` links in the Venue section of `index.html`.
 - Music — `assets/audio/music.mp3` is the reference file; swap in music you have rights to.

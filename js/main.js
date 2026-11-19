@@ -559,12 +559,12 @@
   }
 
   /* ---------------------------------------------------------
-     8 · Countdown — Thursday 31 December 2026, 3:00 PM IST
+     8 · Countdown — Thursday 31 December 2026, 4:00 PM IST
      The target carries an explicit +05:30 offset, so the maths is
      correct on any device time zone (it is an absolute instant).
      --------------------------------------------------------- */
   (function countdown() {
-    var target = new Date(CFG.EVENT_START || '2026-12-31T15:00:00+05:30').getTime();
+    var target = new Date(CFG.EVENT_START || '2026-12-31T16:00:00+05:30').getTime();
     var box = document.getElementById('countdown');
     var kicker = document.querySelector('.countdown-kicker');
     var done = document.getElementById('cdDone');
