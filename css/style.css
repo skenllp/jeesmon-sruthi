@@ -1702,7 +1702,7 @@ body.finale-particles .finale-fallback{opacity:0}
 #revealVideo{object-fit:contain;object-position:center center;background:transparent}
 .reveal-backdrop{
   position:absolute;inset:-6%;z-index:0;
-  background:#14110C url("../assets/images/video/backdrop.jpg") center/cover no-repeat;
+  background:#14110C url("../assets/images/video/backdrop.jpg?v=2") center/cover no-repeat;
   filter:blur(28px) brightness(.62) saturate(1.1);
 }
 
